@@ -1,0 +1,21 @@
+{
+  "_fv": 6,
+  "_type": "food",
+  "definition": {
+    "renderType": 0,
+    "texture": "mc_happy_mealbetter",
+    "customModelName": "Normal",
+    "name": "Mcdonald's Happy Meal",
+    "creativeTab": {
+      "value": "FOOD"
+    },
+    "stackSize": 1,
+    "nutritionalValue": 15,
+    "saturation": 1.0,
+    "eatingSpeed": 128,
+    "forDogs": true,
+    "isAlwaysEdible": true,
+    "animation": "eat",
+    "hasGlow": false
+  }
+}
