@@ -11,15 +11,16 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.World;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.DamageSource;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -35,10 +36,11 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.block.state.IBlockState;
 
+import net.mcreator.primordialsands.procedure.ProcedureCreepermanRightClickedOnEntity;
+import net.mcreator.primordialsands.procedure.ProcedureCreepermanEntityDies;
 import net.mcreator.primordialsands.item.ItemMickysmappymeal;
 import net.mcreator.primordialsands.ElementsPrimordialSands;
 
-import java.util.Random;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -95,21 +97,11 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 		@Override
 		protected void initEntityAI() {
 			super.initEntityAI();
-			this.tasks.addTask(1, new EntityAIWander(this, 1));
+			this.tasks.addTask(1, new EntityAIWander(this, 0.5));
 			this.tasks.addTask(2, new EntityAILookIdle(this));
 			this.tasks.addTask(3, new EntityAISwimming(this));
-			this.tasks.addTask(4, new EntityAIWander(this, 1, 20) {
-				@Override
-				protected Vec3d getPosition() {
-					Random random = EntityCustom.this.getRNG();
-					double dir_x = EntityCustom.this.posX + ((random.nextFloat() * 2 - 1) * 16);
-					double dir_y = EntityCustom.this.posY + ((random.nextFloat() * 2 - 1) * 16);
-					double dir_z = EntityCustom.this.posZ + ((random.nextFloat() * 2 - 1) * 16);
-					return new Vec3d(dir_x, dir_y, dir_z);
-				}
-			});
-			this.tasks.addTask(5, new EntityAILeapAtTarget(this, (float) 1));
-			this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.5, true));
+			this.tasks.addTask(4, new EntityAILeapAtTarget(this, (float) 1));
+			this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.5, true));
 		}
 
 		@Override
@@ -161,6 +153,42 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 			if (source == DamageSource.LIGHTNING_BOLT)
 				return false;
 			return super.attackEntityFrom(source, amount);
+		}
+
+		@Override
+		public void onDeath(DamageSource source) {
+			super.onDeath(source);
+			int x = (int) this.posX;
+			int y = (int) this.posY;
+			int z = (int) this.posZ;
+			Entity entity = this;
+			{
+				java.util.HashMap<String, Object> $_dependencies = new java.util.HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				ProcedureCreepermanEntityDies.executeProcedure($_dependencies);
+			}
+		}
+
+		@Override
+		public boolean processInteract(EntityPlayer entity, EnumHand hand) {
+			super.processInteract(entity, hand);
+			int x = (int) this.posX;
+			int y = (int) this.posY;
+			int z = (int) this.posZ;
+			ItemStack itemstack = entity.getHeldItem(hand);
+			{
+				java.util.HashMap<String, Object> $_dependencies = new java.util.HashMap<>();
+				$_dependencies.put("entity", entity);
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				ProcedureCreepermanRightClickedOnEntity.executeProcedure($_dependencies);
+			}
+			return true;
 		}
 
 		@Override
