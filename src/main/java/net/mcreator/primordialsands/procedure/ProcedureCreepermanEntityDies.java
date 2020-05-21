@@ -18,6 +18,10 @@ public class ProcedureCreepermanEntityDies extends ElementsPrimordialSands.ModEl
 	}
 
 	public static void executeProcedure(java.util.HashMap<String, Object> dependencies) {
+		if (dependencies.get("entity") == null) {
+			System.err.println("Failed to load dependency entity for procedure CreepermanEntityDies!");
+			return;
+		}
 		if (dependencies.get("x") == null) {
 			System.err.println("Failed to load dependency x for procedure CreepermanEntityDies!");
 			return;
@@ -34,13 +38,14 @@ public class ProcedureCreepermanEntityDies extends ElementsPrimordialSands.ModEl
 			System.err.println("Failed to load dependency world for procedure CreepermanEntityDies!");
 			return;
 		}
+		Entity entity = (Entity) dependencies.get("entity");
 		int x = (int) dependencies.get("x");
 		int y = (int) dependencies.get("y");
 		int z = (int) dependencies.get("z");
 		World world = (World) dependencies.get("world");
 		double dupe = 0;
-		if (((dupe) == 1)) {
-			dupe = (double) 0;
+		if ((((entity.getEntityData().getString("Dupe:"))).equals("1"))) {
+			entity.getEntityData().setString("Dupe:", "0");
 		} else {
 			if (!world.isRemote) {
 				Entity entityToSpawn = new EntityCreeperman.EntityCustom(world);

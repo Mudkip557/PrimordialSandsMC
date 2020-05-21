@@ -8,21 +8,20 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.common.DungeonHooks;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.DamageSource;
-import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -36,13 +35,13 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.block.state.IBlockState;
 
 import net.mcreator.primordialsands.procedure.ProcedureCreepermanRightClickedOnEntity;
 import net.mcreator.primordialsands.procedure.ProcedureCreepermanEntityDies;
 import net.mcreator.primordialsands.item.ItemMickysmappymeal;
 import net.mcreator.primordialsands.ElementsPrimordialSands;
 
+import java.util.Random;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -63,7 +62,8 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		Biome[] spawnBiomes = allbiomes(Biome.REGISTRY);
-		EntityRegistry.addSpawn(EntityCustom.class, 20, 3, 30, EnumCreatureType.MONSTER, spawnBiomes);
+		EntityRegistry.addSpawn(EntityCustom.class, 5, 1, 1, EnumCreatureType.MONSTER, spawnBiomes);
+		DungeonHooks.addDungeonMob(new ResourceLocation("primordialsands:creeperman"), 180);
 	}
 
 	private Biome[] allbiomes(net.minecraft.util.registry.RegistryNamespaced<ResourceLocation, Biome> in) {
@@ -88,12 +88,10 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 	public static class EntityCustom extends EntityCreeper {
 		public EntityCustom(World world) {
 			super(world);
-			setSize(1f, 2f);
+			setSize(1f, 1f);
 			experienceValue = 10;
 			this.isImmuneToFire = true;
 			setNoAI(!true);
-			this.navigator = new PathNavigateFlying(this, this.world);
-			this.moveHelper = new EntityFlyHelper(this);
 		}
 
 		@Override
@@ -137,10 +135,6 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 		}
 
 		@Override
-		public void fall(float l, float d) {
-		}
-
-		@Override
 		public boolean attackEntityFrom(DamageSource source, float amount) {
 			if (source.getImmediateSource() instanceof EntityArrow)
 				return false;
@@ -166,6 +160,7 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 			Entity entity = this;
 			{
 				java.util.HashMap<String, Object> $_dependencies = new java.util.HashMap<>();
+				$_dependencies.put("entity", entity);
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
@@ -204,8 +199,6 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 				this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(2D);
 			if (this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE) != null)
 				this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10D);
-			this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
-			this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.9);
 		}
 
 		@Override
@@ -228,19 +221,23 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 			return false;
 		}
 
-		@Override
-		public void onUpdate() {
-			super.onUpdate();
-			this.setNoGravity(true);
-		}
-
-		@Override
-		protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-		}
-
-		@Override
-		public void setNoGravity(boolean ignored) {
-			super.setNoGravity(true);
+		public void onLivingUpdate() {
+			super.onLivingUpdate();
+			int i = (int) this.posX;
+			int j = (int) this.posY;
+			int k = (int) this.posZ;
+			Random random = this.rand;
+			if (true)
+				for (int l = 0; l < 5; ++l) {
+					double d0 = (i + random.nextFloat());
+					double d1 = (j + random.nextFloat());
+					double d2 = (k + random.nextFloat());
+					int i1 = random.nextInt(2) * 2 - 1;
+					double d3 = (random.nextFloat() - 0.5D) * 0.5D;
+					double d4 = (random.nextFloat() - 0.5D) * 0.5D;
+					double d5 = (random.nextFloat() - 0.5D) * 0.5D;
+					world.spawnParticle(EnumParticleTypes.DRIP_LAVA, d0, d1, d2, d3, d4, d5);
+				}
 		}
 	}
 
