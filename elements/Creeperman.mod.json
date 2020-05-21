@@ -2,12 +2,12 @@
   "_fv": 6,
   "_type": "mob",
   "definition": {
-    "mobName": "Creeper man",
+    "mobName": "Vengeful Soul",
     "mobLabel": "",
-    "mobModelTexture": "empty_middle.png",
-    "mobModelName": "Slime",
+    "mobModelTexture": "98262a33ce21ea98.png",
+    "mobModelName": "ModelVengefulSoul",
     "modelWidth": 1.0,
-    "modelHeight": 1.0,
+    "modelHeight": 2.0,
     "modelShadowSize": 0.5,
     "armorBaseValue": 1.0,
     "hasSpawnEgg": true,
@@ -20,7 +20,7 @@
       "falpha": 0.0
     },
     "creativeTab": {
-      "value": "CUSTOM:PrioMaterialTab"
+      "value": "MISC"
     },
     "isBoss": false,
     "bossBarColor": "PINK",
