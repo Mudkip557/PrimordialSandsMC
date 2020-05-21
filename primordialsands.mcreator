@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 1
+    "ENTITY": 3
   },
   "mod_elements": [
     {
@@ -34,6 +34,17 @@
       "compiles": true,
       "locked_code": false,
       "ids": {}
+    },
+    {
+      "name": "Creeperman",
+      "type": "mob",
+      "sortid": 5,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 2,
+        "1": 3
+      }
     }
   ],
   "variable_elements": [],
@@ -41,6 +52,7 @@
   "language_map": {
     "en_us": {
       "item.mickysmappymeal.name": "Mcdonald\u0027s Happy Meal",
+      "entity.creeperman.name": "Creeper man",
       "itemGroup.tabpriomaterialtab": "Primordial Sands Materials",
       "item.indenwoodpickaxe.name": "Indenwood Pickaxe",
       "item.indenwood.name": "Indenwood"
