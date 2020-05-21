@@ -38,7 +38,9 @@ public class ProcedureCreepermanEntityDies extends ElementsPrimordialSands.ModEl
 		int y = (int) dependencies.get("y");
 		int z = (int) dependencies.get("z");
 		World world = (World) dependencies.get("world");
-		if (true) {
+		double dupe = 0;
+		if (((dupe) == 1)) {
+			dupe = (double) 0;
 		} else {
 			if (!world.isRemote) {
 				Entity entityToSpawn = new EntityCreeperman.EntityCustom(world);
