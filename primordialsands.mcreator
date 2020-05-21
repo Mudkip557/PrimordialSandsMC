@@ -1,0 +1,57 @@
+{
+  "id_map": {
+    "ENTITY": 1
+  },
+  "mod_elements": [
+    {
+      "name": "Indenwood",
+      "type": "item",
+      "sortid": 1,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "IndenwoodPickaxe",
+      "type": "tool",
+      "sortid": 2,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "PrioMaterialTab",
+      "type": "tab",
+      "sortid": 3,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [],
+  "language_map": {
+    "en_us": {
+      "itemGroup.tabpriomaterialtab": "Primordial Sands Materials",
+      "item.indenwoodpickaxe.name": "Indenwood Pickaxe",
+      "item.indenwood.name": "Indenwood"
+    }
+  },
+  "workspaceSettings": {
+    "modid": "primordialsands",
+    "modName": "Primordial Sands",
+    "version": "1.0.0",
+    "author": "supertek65, MCreator",
+    "websiteURL": "https://mcreator.net",
+    "disableForgeVersionCheck": true,
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "1.12.2",
+    "modElementsPackage": "net.mcreator.primordialsands",
+    "lockBaseModFiles": false
+  },
+  "mcreatorVersion": 202000214217
+}

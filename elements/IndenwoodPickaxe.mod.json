@@ -1,0 +1,27 @@
+{
+  "_fv": 6,
+  "_type": "tool",
+  "definition": {
+    "renderType": 0,
+    "texture": "ndenwood_pickaxe_",
+    "customModelName": "Normal",
+    "name": "Indenwood Pickaxe",
+    "creativeTab": {
+      "value": "TOOLS"
+    },
+    "toolType": "Pickaxe",
+    "harvestLevel": 4,
+    "efficiency": 4.0,
+    "attackSpeed": 1.0,
+    "enchantability": 7,
+    "damageVsEntity": 8.0,
+    "usageCount": 2000,
+    "blocksAffected": [],
+    "hasGlow": true,
+    "repairItems": [
+      {
+        "value": "CUSTOM:Indenwood"
+      }
+    ]
+  }
+}
