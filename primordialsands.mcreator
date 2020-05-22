@@ -1,6 +1,6 @@
 {
   "id_map": {
-    "ENTITY": 3
+    "ENTITY": 4
   },
   "mod_elements": [
     {
@@ -129,6 +129,59 @@
       "compiles": true,
       "locked_code": false,
       "ids": {}
+    },
+    {
+      "name": "RubyroseBulletHitssap",
+      "type": "procedure",
+      "sortid": 9,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": []
+      }
+    },
+    {
+      "name": "Rbyose",
+      "type": "gun",
+      "sortid": 10,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {
+        "0": 4
+      }
+    },
+    {
+      "name": "RbyoseBulletHitsPlayerheal",
+      "type": "procedure",
+      "sortid": 11,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreepermanOnInitialEntitySpawn",
+      "type": "procedure",
+      "sortid": 8,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [],
@@ -137,12 +190,9 @@
     "en_us": {
       "item.mickysmappymeal.name": "Mcdonald\u0027s Happy Meal",
       "entity.creeperman.name": "Vengeful Soul",
-      "tile.indengrass.name": "Indengrass",
-      "tile.indensoil.name": "Indensoil",
-      "tile.ancientfurnace.name": "Ancient Forge",
       "itemGroup.tabpriomaterialtab": "Primordial Sands Materials",
       "item.indenwoodpickaxe.name": "Indenwood Pickaxe",
-      "item.indenwood.name": "Hardened Indenwood"
+      "item.indenwood.name": "Indenwood"
     }
   },
   "workspaceSettings": {
