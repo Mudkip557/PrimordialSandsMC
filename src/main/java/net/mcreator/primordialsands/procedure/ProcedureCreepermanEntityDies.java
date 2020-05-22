@@ -44,14 +44,22 @@ public class ProcedureCreepermanEntityDies extends ElementsPrimordialSands.ModEl
 		int z = (int) dependencies.get("z");
 		World world = (World) dependencies.get("world");
 		double dupe = 0;
-		if ((((entity.getEntityData().getString("Dupe:"))).equals("1"))) {
-			entity.getEntityData().setString("Dupe:", "0");
-		} else {
+		if ((!(((entity.getEntityData().getString("Dupe:"))).equals("1")))) {
 			if (!world.isRemote) {
 				Entity entityToSpawn = new EntityCreeperman.EntityCustom(world);
 				if (entityToSpawn != null) {
 					entityToSpawn.setLocationAndAngles(x, y, z, world.rand.nextFloat() * 360F, 0.0F);
 					world.spawnEntity(entityToSpawn);
+				}
+			}
+		}
+		if ((((entity.getEntityData().getString("Dupe:"))).equals("1"))) {
+			if (dependencies.get("event") != null) {
+				Object _obj = dependencies.get("event");
+				if (_obj instanceof net.minecraftforge.fml.common.eventhandler.Event) {
+					net.minecraftforge.fml.common.eventhandler.Event _evt = (net.minecraftforge.fml.common.eventhandler.Event) _obj;
+					if (_evt.isCancelable())
+						_evt.setCanceled(true);
 				}
 			}
 		}

@@ -47,9 +47,9 @@ public class ProcedureCreepermanRightClickedOnEntity extends ElementsPrimordialS
 		World world = (World) dependencies.get("world");
 		double dupe = 0;
 		if (world instanceof WorldServer)
-			((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, (int) 5, 3, 3, 3, 1, new int[0]);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, (int) 20, 3, 3, 3, 1, new int[0]);
 		entity.getEntityData().setString("Dupe:", "1");
-		entity.attackEntityFrom(DamageSource.GENERIC, (float) 10000000);
+		entity.attackEntityFrom(DamageSource.GENERIC, (float) 2);
 	}
 
 	@SubscribeEvent

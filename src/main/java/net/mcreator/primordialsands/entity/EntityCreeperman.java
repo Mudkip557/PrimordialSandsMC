@@ -12,6 +12,7 @@ import net.minecraftforge.common.DungeonHooks;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.World;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumHand;
@@ -21,13 +22,17 @@ import net.minecraft.item.Item;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIRestrictSun;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.Entity;
@@ -37,8 +42,8 @@ import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelBase;
 
 import net.mcreator.primordialsands.procedure.ProcedureCreepermanRightClickedOnEntity;
+import net.mcreator.primordialsands.procedure.ProcedureCreepermanOnInitialEntitySpawn;
 import net.mcreator.primordialsands.procedure.ProcedureCreepermanEntityDies;
-import net.mcreator.primordialsands.item.ItemMickysmappymeal;
 import net.mcreator.primordialsands.ElementsPrimordialSands;
 
 import java.util.Random;
@@ -55,8 +60,9 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 
 	@Override
 	public void initElements() {
-		elements.entities.add(() -> EntityEntryBuilder.create().entity(EntityCustom.class)
-				.id(new ResourceLocation("primordialsands", "creeperman"), ENTITYID).name("creeperman").tracker(256, 3, true).egg(-1, -1).build());
+		elements.entities
+				.add(() -> EntityEntryBuilder.create().entity(EntityCustom.class).id(new ResourceLocation("primordialsands", "creeperman"), ENTITYID)
+						.name("creeperman").tracker(256, 3, true).egg(-16777216, -10092544).build());
 	}
 
 	@Override
@@ -85,11 +91,11 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 			};
 		});
 	}
-	public static class EntityCustom extends EntityCreeper {
+	public static class EntityCustom extends EntityZombie {
 		public EntityCustom(World world) {
 			super(world);
-			setSize(1f, 1f);
-			experienceValue = 10;
+			setSize(1f, 2f);
+			experienceValue = 0;
 			this.isImmuneToFire = true;
 			setNoAI(!true);
 		}
@@ -98,10 +104,13 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 		protected void initEntityAI() {
 			super.initEntityAI();
 			this.tasks.addTask(1, new EntityAIWander(this, 0.5));
-			this.tasks.addTask(2, new EntityAILookIdle(this));
+			this.tasks.addTask(2, new EntityAIWatchClosest(this, EntityPlayer.class, (float) 600));
 			this.tasks.addTask(3, new EntityAISwimming(this));
-			this.tasks.addTask(4, new EntityAILeapAtTarget(this, (float) 1));
-			this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.5, true));
+			this.tasks.addTask(4, new EntityAIRestrictSun(this));
+			this.tasks.addTask(5, new EntityAIBreakDoor(this));
+			this.tasks.addTask(6, new EntityAILeapAtTarget(this, (float) 1));
+			this.targetTasks.addTask(7, new EntityAIHurtByTarget(this, true));
+			this.tasks.addTask(8, new EntityAIAttackMelee(this, 1.5, true));
 		}
 
 		@Override
@@ -111,7 +120,7 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 
 		@Override
 		protected Item getDropItem() {
-			return new ItemStack(ItemMickysmappymeal.block, (int) (1)).getItem();
+			return null;
 		}
 
 		@Override
@@ -170,6 +179,21 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 		}
 
 		@Override
+		public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+			IEntityLivingData retval = super.onInitialSpawn(difficulty, livingdata);
+			int x = (int) this.posX;
+			int y = (int) this.posY;
+			int z = (int) this.posZ;
+			Entity entity = this;
+			{
+				java.util.HashMap<String, Object> $_dependencies = new java.util.HashMap<>();
+				$_dependencies.put("entity", entity);
+				ProcedureCreepermanOnInitialEntitySpawn.executeProcedure($_dependencies);
+			}
+			return retval;
+		}
+
+		@Override
 		public boolean processInteract(EntityPlayer entity, EnumHand hand) {
 			super.processInteract(entity, hand);
 			int x = (int) this.posX;
@@ -196,9 +220,9 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 			if (this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED) != null)
 				this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.9D);
 			if (this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH) != null)
-				this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(2D);
+				this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1D);
 			if (this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE) != null)
-				this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10D);
+				this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D);
 		}
 
 		@Override
@@ -228,14 +252,14 @@ public class EntityCreeperman extends ElementsPrimordialSands.ModElement {
 			int k = (int) this.posZ;
 			Random random = this.rand;
 			if (true)
-				for (int l = 0; l < 5; ++l) {
+				for (int l = 0; l < 1; ++l) {
 					double d0 = (i + random.nextFloat());
 					double d1 = (j + random.nextFloat());
 					double d2 = (k + random.nextFloat());
 					int i1 = random.nextInt(2) * 2 - 1;
-					double d3 = (random.nextFloat() - 0.5D) * 0.5D;
-					double d4 = (random.nextFloat() - 0.5D) * 0.5D;
-					double d5 = (random.nextFloat() - 0.5D) * 0.5D;
+					double d3 = (random.nextFloat() - 0.5D) * 1.500000001490116D;
+					double d4 = (random.nextFloat() - 0.5D) * 1.500000001490116D;
+					double d5 = (random.nextFloat() - 0.5D) * 1.500000001490116D;
 					world.spawnParticle(EnumParticleTypes.DRIP_LAVA, d0, d1, d2, d3, d4, d5);
 				}
 		}

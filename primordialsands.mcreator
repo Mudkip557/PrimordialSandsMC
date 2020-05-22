@@ -109,6 +109,22 @@
           }
         ]
       }
+    },
+    {
+      "name": "CreepermanOnInitialEntitySpawn",
+      "type": "procedure",
+      "sortid": 8,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [],
