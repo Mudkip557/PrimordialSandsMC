@@ -1,14 +1,44 @@
 
 package net.mcreator.primordialsands.item;
 
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+
+import net.minecraft.world.World;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResult;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
+import net.minecraft.item.EnumAction;
+import net.minecraft.entity.projectile.EntityTippedArrow;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.Entity;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.Minecraft;
+
+import net.mcreator.primordialsands.procedure.ProcedureRubyroseBulletHitssap;
+import net.mcreator.primordialsands.procedure.ProcedureRbyoseBulletHitsPlayerheal;
+import net.mcreator.primordialsands.ElementsPrimordialSands;
+
 @ElementsPrimordialSands.ModElement.Tag
 public class ItemRbyose extends ElementsPrimordialSands.ModElement {
-
 	@GameRegistry.ObjectHolder("primordialsands:rbyose")
 	public static final Item block = null;
-
 	public static final int ENTITYID = 4;
-
 	public ItemRbyose(ElementsPrimordialSands instance) {
 		super(instance, 10);
 	}
@@ -34,9 +64,7 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 					Minecraft.getMinecraft().getRenderItem());
 		});
 	}
-
 	public static class RangedItem extends Item {
-
 		public RangedItem() {
 			super();
 			setMaxDamage(100);
@@ -45,7 +73,6 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 			setRegistryName("rbyose");
 			maxStackSize = 1;
 			setCreativeTab(CreativeTabs.COMBAT);
-
 		}
 
 		@Override
@@ -59,9 +86,7 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 				entityarrow.setIsCritical(false);
 				entityarrow.setDamage(5);
 				entityarrow.setKnockbackStrength(5);
-
 				itemstack.damageItem(1, entity);
-
 				int x = (int) entity.posX;
 				int y = (int) entity.posY;
 				int z = (int) entity.posZ;
@@ -69,12 +94,9 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 						(net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY
 								.getObject(new ResourceLocation(("entity.arrow.shoot"))),
 						SoundCategory.NEUTRAL, 1, 1f / (itemRand.nextFloat() * 0.5f + 1f) + (power / 2));
-
 				entityarrow.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-
 				if (!world.isRemote)
 					world.spawnEntity(entityarrow);
-
 			}
 		}
 
@@ -93,11 +115,9 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 		public int getMaxItemUseDuration(ItemStack itemstack) {
 			return 72000;
 		}
-
 	}
 
 	public static class EntityArrowCustom extends EntityTippedArrow {
-
 		public EntityArrowCustom(World a) {
 			super(a);
 		}
@@ -119,7 +139,7 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 			World world = this.world;
 			{
 				java.util.HashMap<String, Object> $_dependencies = new java.util.HashMap<>();
-
+				$_dependencies.put("entity", entity);
 				ProcedureRbyoseBulletHitsPlayerheal.executeProcedure($_dependencies);
 			}
 		}
@@ -141,13 +161,10 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 			if (this.inGround) {
 				{
 					java.util.HashMap<String, Object> $_dependencies = new java.util.HashMap<>();
-
 					ProcedureRubyroseBulletHitssap.executeProcedure($_dependencies);
 				}
 				this.world.removeEntity(this);
 			}
 		}
-
 	}
-
 }

@@ -1,10 +1,5 @@
 package net.mcreator.primordialsands.procedure;
 
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.common.MinecraftForge;
-
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.World;
 import net.minecraft.util.EnumParticleTypes;
@@ -50,27 +45,5 @@ public class ProcedureCreepermanRightClickedOnEntity extends ElementsPrimordialS
 			((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, (int) 20, 3, 3, 3, 1, new int[0]);
 		entity.getEntityData().setString("Dupe:", "1");
 		entity.attackEntityFrom(DamageSource.GENERIC, (float) 2);
-	}
-
-	@SubscribeEvent
-	public void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
-		Entity entity = event.getTarget();
-		int i = event.getPos().getX();
-		int j = event.getPos().getY();
-		int k = event.getPos().getZ();
-		World world = event.getWorld();
-		java.util.HashMap<String, Object> dependencies = new java.util.HashMap<>();
-		dependencies.put("x", i);
-		dependencies.put("y", j);
-		dependencies.put("z", k);
-		dependencies.put("world", world);
-		dependencies.put("entity", entity);
-		dependencies.put("event", event);
-		this.executeProcedure(dependencies);
-	}
-
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 }

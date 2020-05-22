@@ -1,8 +1,16 @@
 package net.mcreator.primordialsands.procedure;
 
+import net.minecraft.world.World;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.entity.Entity;
+import net.minecraft.command.ICommandSender;
+
+import net.mcreator.primordialsands.ElementsPrimordialSands;
+
 @ElementsPrimordialSands.ModElement.Tag
 public class ProcedureRbyoseBulletHitsPlayerheal extends ElementsPrimordialSands.ModElement {
-
 	public ProcedureRbyoseBulletHitsPlayerheal(ElementsPrimordialSands instance) {
 		super(instance, 11);
 	}
@@ -12,12 +20,9 @@ public class ProcedureRbyoseBulletHitsPlayerheal extends ElementsPrimordialSands
 			System.err.println("Failed to load dependency entity for procedure RbyoseBulletHitsPlayerheal!");
 			return;
 		}
-
 		Entity entity = (Entity) dependencies.get("entity");
-
 		if (!entity.world.isRemote && entity.world.getMinecraftServer() != null) {
 			entity.world.getMinecraftServer().getCommandManager().executeCommand(new ICommandSender() {
-
 				@Override
 				public String getName() {
 					return "";
@@ -57,10 +62,7 @@ public class ProcedureRbyoseBulletHitsPlayerheal extends ElementsPrimordialSands
 				public Entity getCommandSenderEntity() {
 					return entity;
 				}
-
 			}, "effect @p minecraft:regeneration 30 3 ");
 		}
-
 	}
-
 }
