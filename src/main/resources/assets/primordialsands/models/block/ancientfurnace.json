@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "primordialsands:blocks/lacksmith_orge_top",
+    "up": "primordialsands:blocks/lacksmith_orge_top",
+    "north": "primordialsands:blocks/lacksmith_orge_front_unlit",
+    "east": "primordialsands:blocks/lacksmith_forge_side",
+    "south": "primordialsands:blocks/lacksmith_forge_side",
+    "west": "primordialsands:blocks/lacksmith_forge_side",
+    "particle": "primordialsands:blocks/lacksmith_orge_top"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "primordialsands:blocks/ndenoil",
+    "up": "primordialsands:blocks/ndengrass_top",
+    "north": "primordialsands:blocks/ndengrass_ide",
+    "east": "primordialsands:blocks/ndengrass_ide",
+    "south": "primordialsands:blocks/ndengrass_ide",
+    "west": "primordialsands:blocks/ndengrass_ide",
+    "particle": "primordialsands:blocks/ndenoil"
+  }
+}

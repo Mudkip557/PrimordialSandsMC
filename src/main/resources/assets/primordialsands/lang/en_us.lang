@@ -1,5 +1,8 @@
 item.mickysmappymeal.name=Mcdonald's Happy Meal
 entity.creeperman.name=Vengeful Soul
+tile.indengrass.name=Indengrass
+tile.indensoil.name=Indensoil
+tile.ancientfurnace.name=Ancient Forge
 itemGroup.tabpriomaterialtab=Primordial Sands Materials
 item.indenwoodpickaxe.name=Indenwood Pickaxe
-item.indenwood.name=Indenwood
+item.indenwood.name=Hardened Indenwood

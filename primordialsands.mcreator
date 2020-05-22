@@ -105,6 +105,30 @@
           }
         ]
       }
+    },
+    {
+      "name": "Indensoil",
+      "type": "block",
+      "sortid": 8,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "Indengrass",
+      "type": "block",
+      "sortid": 9,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "AncientFurnace",
+      "type": "block",
+      "sortid": 10,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
     }
   ],
   "variable_elements": [],
@@ -113,9 +137,12 @@
     "en_us": {
       "item.mickysmappymeal.name": "Mcdonald\u0027s Happy Meal",
       "entity.creeperman.name": "Vengeful Soul",
+      "tile.indengrass.name": "Indengrass",
+      "tile.indensoil.name": "Indensoil",
+      "tile.ancientfurnace.name": "Ancient Forge",
       "itemGroup.tabpriomaterialtab": "Primordial Sands Materials",
       "item.indenwoodpickaxe.name": "Indenwood Pickaxe",
-      "item.indenwood.name": "Indenwood"
+      "item.indenwood.name": "Hardened Indenwood"
     }
   },
   "workspaceSettings": {

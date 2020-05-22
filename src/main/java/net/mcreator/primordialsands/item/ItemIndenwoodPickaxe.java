@@ -38,12 +38,6 @@ public class ItemIndenwoodPickaxe extends ElementsPrimordialSands.ModElement {
 				ret.put("pickaxe", 4);
 				return ret.keySet();
 			}
-
-			@Override
-			@SideOnly(Side.CLIENT)
-			public boolean hasEffect(ItemStack itemstack) {
-				return true;
-			}
 		}.setUnlocalizedName("indenwoodpickaxe").setRegistryName("indenwoodpickaxe").setCreativeTab(CreativeTabs.TOOLS));
 	}
 

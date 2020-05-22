@@ -3,7 +3,7 @@
   "_type": "food",
   "definition": {
     "renderType": 0,
-    "texture": "mc_happy_mealbetter",
+    "texture": "mcdonal",
     "customModelName": "Normal",
     "name": "Mcdonald's Happy Meal",
     "creativeTab": {
