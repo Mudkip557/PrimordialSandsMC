@@ -161,6 +161,10 @@ public class ItemRbyose extends ElementsPrimordialSands.ModElement {
 			if (this.inGround) {
 				{
 					java.util.HashMap<String, Object> $_dependencies = new java.util.HashMap<>();
+					$_dependencies.put("x", x);
+					$_dependencies.put("y", y);
+					$_dependencies.put("z", z);
+					$_dependencies.put("world", world);
 					ProcedureRubyroseBulletHitssap.executeProcedure($_dependencies);
 				}
 				this.world.removeEntity(this);
